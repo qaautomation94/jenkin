@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="CalmacTestSuite - Smoke Test Suite" parallel="false" verbose="1">
+	<listeners>
+		<listener class-name="com.mscs.emr.automation.functional.InvokedMethodListener" />
+		<listener class-name="com.mscs.emr.automation.functional.SuiteListener" />
+		<listener class-name="com.mscs.emr.automation.utils.ExtentReporter" />
+	</listeners>
+
+	<test name="SmokeTest" parallel="false" thread-count="1">
+		<groups>
+			<run>
+				<include name="Smoke"/>
+			</run>
+		</groups>
+		<packages>
+			<package name="com.mscs.emr.automation.functional.ESBIntegrations.test.*" />
+		</packages>
+		
+	</test>
+</suite>

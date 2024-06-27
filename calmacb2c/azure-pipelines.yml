@@ -1,0 +1,40 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- develop
+
+
+schedules:
+  - cron: "0 6 * * *"
+    displayName: Daily midnight build
+    branches:
+      include:
+        - develop
+    always: true
+
+
+stages:
+  - stage: build
+    displayName: Build
+    jobs:
+      - job: Build
+        timeoutInMinutes: 0
+        cancelTimeoutInMinutes: 2
+        pool:
+          name: Default
+        steps:
+          - task: Maven@3
+            inputs:
+              mavenPomFile: 'pom.xml'
+              javaHomeOption: 'JDKVersion'
+              mavenVersionOption: 'Default'
+
+          - task: PublishPipelineArtifact@1
+            inputs:
+             targetPath: '$(Pipeline.Workspace)/s/src/test/resources/resources_pro/testdata/TestData.xlsx'
+             artifact: 'drop'
+             publishLocation: 'pipeline'
+
